@@ -5,7 +5,7 @@ Napisz program, który będzie rejestrował operacje na koncie firmy i stan maga
 Program po uruchomieniu wyświetla informację o dostępnych komendach:
 
 saldo
- sprzedaż
+sprzedaż
 zakup
 konto
 lista
