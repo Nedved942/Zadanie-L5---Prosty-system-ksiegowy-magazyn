@@ -24,6 +24,7 @@ Wybierz jedno z poniższych poleceń (możesz wpisać także numer):
     # TODO Pytanie do konsultacji: Poniżej instrukcja switch?
 
     if menu_command == "1" or menu_command == "saldo":
+        # Dodanie lub odjęcie wartości od kwoty na koncie
         difference_in_account = input("Podaj kwotę do dodania lub odjęcia z konta: ")
         difference_in_account = float(difference_in_account)
         amount_in_account = amount_in_account + difference_in_account
@@ -101,7 +102,11 @@ Wybierz jedno z poniższych poleceń (możesz wpisać także numer):
         print("Kwota na koncie wynosi: ", amount_in_account)
 
     elif menu_command == "5" or menu_command == "lista":
-        pass
+        print("Stan magazynu: ")
+        for index, name in enumerate(warehouse):
+            print(f"\n{index + 1}. {name.capitalize()}:\n"
+                  f"  cena: {warehouse[name]['price']}\n"
+                  f"  ilość: {warehouse[name]['amount']}")
 
     elif menu_command == "6" or menu_command == "magazyn":
         pass
