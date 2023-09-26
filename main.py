@@ -165,33 +165,40 @@ Wybierz jedno z poniższych poleceń (możesz wpisać także numer):
         # TODO Czy nie za bardzo skomplikowane?
         # TODO Czy da się to zrobić poprzez konwersję na .json?
 
-        # # Przykładowy wpis 2
-        # operation_history = [{"Nazwa operacji": "Saldo",
-        #                       "Opis operacji":
-        #                           (
-        #                               f"Kwota operacji: 3000\n"
-        #                               f"Stan konta po operacji: 3000"
-        #                           ),
-        #                       "Data operacji": "26.09.2023 21:56:23"},
-        #
-        #                      {"Nazwa operacji": "Sprzedaż",
-        #                       "Opis operacji":
-        #                           (
-        #                               f"Nazwa sprzedanego produktu: rower\n"
-        #                               f"Kwota sprzedaży za jeden produkt: 400\n"
-        #                               f"Ilość sprzedanych produktów: 4\n"
-        #                               f"Stan konta po operacji: 1400"
-        #                           ),
-        #                       "Data operacji": "26.09.2023 21:57:35"}
-        #                      ]
+        # Przykładowy wpis 2
+        operation_history = [{"Nazwa operacji": "Saldo",
+                              "Opis operacji":
+                                  (
+                                      f"Kwota operacji: 3000\n"
+                                      f"Stan konta po operacji: 3000"
+                                  ),
+                              "Data operacji": "26.09.2023 21:56:23"},
+
+                             {"Nazwa operacji": "Sprzedaż",
+                              "Opis operacji":
+                                  (
+                                      f"Nazwa sprzedanego produktu: rower\n"
+                                      f"Kwota sprzedaży za jeden produkt: 400\n"
+                                      f"Ilość sprzedanych produktów: 4\n"
+                                      f"Stan konta po operacji: 1400"
+                                  ),
+                              "Data operacji": "26.09.2023 21:57:35"}
+                             ]
 
         # Wyświetla historię operacji
+        print(f"Odnotowano {len(operation_history)} operacji w historii. Należy wybrać odpowiedni zakres.")
+        display_history_start_number = input("Podaj początkowy indeks historii operacji: ")
+        display_history_start_number = int(display_history_start_number)
+        display_history_end_number = input("Podaj końcowy indeks historii operacji: ")
+        display_history_end_number = int(display_history_end_number)
+
         print("Historia operacji:")
         for index, operation in enumerate(operation_history):
-            indent_date_width = 60 - len(operation["Nazwa operacji"])
-            justify_operation_date = str(operation["Data operacji"].rjust(indent_date_width))
-            print(f'{index + 1}. {operation["Nazwa operacji"]} {justify_operation_date}\n'
-                  f'{operation["Opis operacji"]}')
+            if index in range(display_history_start_number - 1, display_history_end_number):
+                indent_date_width = 60 - len(operation["Nazwa operacji"])
+                justify_operation_date = str(operation["Data operacji"].rjust(indent_date_width))
+                print(f'{index + 1}. {operation["Nazwa operacji"]} {justify_operation_date}\n'
+                      f'{operation["Opis operacji"]}')
 
     elif menu_command == "8" or menu_command == "koniec":
         break
