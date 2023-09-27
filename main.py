@@ -30,7 +30,12 @@ Wybierz jedno z poniższych poleceń (możesz wpisać także numer):
     if menu_command == "1" or menu_command == "saldo":
         # Dodanie lub odjęcie wartości od kwoty na koncie
         difference_in_account = input("Podaj kwotę do dodania lub odjęcia z konta: ")
-        difference_in_account = float(difference_in_account)
+        try:
+            difference_in_account = float(difference_in_account)
+        except ValueError:
+            print("Błąd - Należy podać liczbę.")
+            continue
+
         amount_in_account = amount_in_account + difference_in_account
 
         # Aktualizacja historii operacji
@@ -47,11 +52,19 @@ Wybierz jedno z poniższych poleceń (możesz wpisać także numer):
         product_to_sell_name = input("Podaj nazwę produktu, który chcesz sprzedać: ")
         if product_to_sell_name not in warehouse:
             print("Produkt, który chcesz sprzedać nie występuje w magazynie.")
-            break
+            continue
         product_to_sell_price = input("Podaj cenę sprzedaży danego produktu: ")
-        product_to_sell_price = float(product_to_sell_price)
+        try:
+            product_to_sell_price = float(product_to_sell_price)
+        except ValueError:
+            print("Błąd - Należy podać liczbę.")
+            continue
         product_to_sell_amount = input("Podaj ilość produktów do sprzedania: ")
-        product_to_sell_amount = int(product_to_sell_amount)
+        try:
+            product_to_sell_amount = int(product_to_sell_amount)
+        except ValueError:
+            print("Błąd - Należy podać liczbę.")
+            continue
 
         # Odjęcie z magazynu sprzedawanej ilości towaru
         warehouse[product_to_sell_name]["amount"] = \
@@ -101,9 +114,17 @@ Wybierz jedno z poniższych poleceń (możesz wpisać także numer):
         else:
             product_to_buy_price = input("Podaj cenę zakupionego "
                                          "produktu (pojedynczego): ")
-        product_to_buy_price = float(product_to_buy_price)
+        try:
+            product_to_buy_price = float(product_to_buy_price)
+        except ValueError:
+            print("Błąd - Należy podać liczbę.")
+            continue
         product_to_buy_amount = input("Podaj ilość zakupionych produktów: ")
-        product_to_buy_amount = int(product_to_buy_amount)
+        try:
+            product_to_buy_amount = int(product_to_buy_amount)
+        except ValueError:
+            print("Błąd - Należy podać liczbę.")
+            continue
 
         # Sprawdzenie wystarczających środków na końcie i aktualizacja stanu konta
         if (product_to_buy_price * product_to_buy_amount) > amount_in_account:
@@ -151,34 +172,35 @@ Wybierz jedno z poniższych poleceń (możesz wpisać także numer):
     elif menu_command == "6" or menu_command == "magazyn":
         # Wyświetla ilość wskazanego produktu
         product_to_display = input("Podaj nazwę produktu do wyświetlenia: ")
+        if product_to_display not in warehouse:
+            print("Nie ma w magazynie produktu o podanej nazwie.")
+            continue
         print(f"Ilość powyższego produktu w magazynie to "
               f"{warehouse[product_to_display]['amount']} szt.")
 
     elif menu_command == "7" or menu_command == "przegląd":
-        # Przykładowy wpis
-        operation_history = [{"Nazwa operacji": "Saldo",
-                              "Opis operacji":
-                                  (
-                                      f"Kwota operacji: 3000\n"
-                                      f"Stan konta po operacji: 3000"
-                                  ),
-                              "Data operacji": "26.09.2023 21:56:23"},
-
-                             {"Nazwa operacji": "Sprzedaż",
-                              "Opis operacji":
-                                  (
-                                      f"Nazwa sprzedanego produktu: rower\n"
-                                      f"Kwota sprzedaży za jeden produkt: 400\n"
-                                      f"Ilość sprzedanych produktów: 4\n"
-                                      f"Stan konta po operacji: 1400"
-                                  ),
-                              "Data operacji": "26.09.2023 21:57:35"}
-                             ]
+        # # Przykładowy wpis
+        # operation_history = [{"Nazwa operacji": "Saldo",
+        #                       "Opis operacji":
+        #                           (
+        #                               f"Kwota operacji: 3000\n"
+        #                               f"Stan konta po operacji: 3000"
+        #                           ),
+        #                       "Data operacji": "26.09.2023 21:56:23"},
+        #
+        #                      {"Nazwa operacji": "Sprzedaż",
+        #                       "Opis operacji":
+        #                           (
+        #                               f"Nazwa sprzedanego produktu: rower\n"
+        #                               f"Kwota sprzedaży za jeden produkt: 400\n"
+        #                               f"Ilość sprzedanych produktów: 4\n"
+        #                               f"Stan konta po operacji: 1400"
+        #                           ),
+        #                       "Data operacji": "26.09.2023 21:57:35"}
+        #                      ]
 
         # Pobiera zakres wyświetlenia od użytkownika
         print(f"Odnotowano {len(operation_history)} operacji w historii.")
-        print(range(1, len(operation_history)))
-        print(2 in range(1, len(operation_history)))
 
         if len(operation_history) == 0:
             break
