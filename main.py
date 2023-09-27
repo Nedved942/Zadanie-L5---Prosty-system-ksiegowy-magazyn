@@ -27,11 +27,6 @@ Wybierz jedno z poniższych poleceń (możesz wpisać także numer):
 8 - koniec
 """)
 
-    # TODO Pytanie do konsultacji: Czy powyżej stosuje się taki zapis z """ x ""?
-    #  Nie podoba mi się to wcięcie na pierwszym poziomie. Jest nieczytelne.
-
-    # TODO Pytanie do konsultacji: Poniżej instrukcja switch?
-
     if menu_command == "1" or menu_command == "saldo":
         # Dodanie lub odjęcie wartości od kwoty na koncie
         difference_in_account = input("Podaj kwotę do dodania lub odjęcia z konta: ")
@@ -160,12 +155,7 @@ Wybierz jedno z poniższych poleceń (możesz wpisać także numer):
               f"{warehouse[product_to_display]['amount']} szt.")
 
     elif menu_command == "7" or menu_command == "przegląd":
-
-        # TODO Jak ułożyć poniższy słownik tak jak się robić powinno? (aby był czytelny i zgodny z zasadami)
-        # TODO Czy nie za bardzo skomplikowane?
-        # TODO Czy da się to zrobić poprzez konwersję na .json?
-
-        # Przykładowy wpis 2
+        # Przykładowy wpis
         operation_history = [{"Nazwa operacji": "Saldo",
                               "Opis operacji":
                                   (
@@ -185,13 +175,39 @@ Wybierz jedno z poniższych poleceń (możesz wpisać także numer):
                               "Data operacji": "26.09.2023 21:57:35"}
                              ]
 
-        # Wyświetla historię operacji
-        print(f"Odnotowano {len(operation_history)} operacji w historii. Należy wybrać odpowiedni zakres.")
-        display_history_start_number = input("Podaj początkowy indeks historii operacji: ")
-        display_history_start_number = int(display_history_start_number)
-        display_history_end_number = input("Podaj końcowy indeks historii operacji: ")
-        display_history_end_number = int(display_history_end_number)
+        # Pobiera zakres wyświetlenia od użytkownika
+        print(f"Odnotowano {len(operation_history)} operacji w historii.")
+        print(range(1, len(operation_history)))
+        print(2 in range(1, len(operation_history)))
 
+        if len(operation_history) == 0:
+            break
+
+        display_history_start_number = input("Podaj początkowy indeks historii operacji: ")
+        if display_history_start_number == "":
+            display_history_start_number = 1
+        try:
+            display_history_start_number = int(display_history_start_number)
+        except ValueError:
+            print("Błąd - Należy podać liczbę.")
+            continue
+        if display_history_start_number < 1 or display_history_start_number > len(operation_history):
+            print(f"Wybrano wartość spoza zakresu. Należy wpisać wartość z przedziału od 1 do {len(operation_history)}")
+            continue
+
+        display_history_end_number = input("Podaj końcowy indeks historii operacji: ")
+        if display_history_end_number == "":
+            display_history_end_number = len(operation_history)
+        try:
+            display_history_end_number = int(display_history_end_number)
+        except ValueError:
+            print("Błąd - Należy podać liczbę.")
+            continue
+        if display_history_end_number < 1 or display_history_end_number > len(operation_history):
+            print(f"Wybrano wartość spoza zakresu. Należy wpisać wartość z przedziału od 1 do {len(operation_history)}")
+            continue
+
+        # Wyświetla historię operacji
         print("Historia operacji:")
         for index, operation in enumerate(operation_history):
             if index in range(display_history_start_number - 1, display_history_end_number):
